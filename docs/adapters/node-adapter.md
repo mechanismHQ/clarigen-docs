@@ -95,3 +95,17 @@ const balance = await provider.roOk(tx); // bigint
 ### `roErr`
 
 The opposite of `roOk`, this calls a read-only function and returns the `Err` value of a response. This can only be used on functions that return a `response` type. If the result is an `Ok` response, this function will throw an exception.
+
+### `mapGet`
+
+Get the value from a map for a specific key.
+
+`mapGet` always returns the type `value | null`. For example, if the type of your map's values are `uint`, the result of `mapGet` is `bigint | null`.
+
+```clarity
+(define-map simple-map uint bool)
+```
+
+```ts
+const hasOne = await provider.mapGet(myContract.simpleMap(0n)); // `boolean | null`
+```
