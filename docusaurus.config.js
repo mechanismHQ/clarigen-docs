@@ -35,6 +35,7 @@ const config = {
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
+          // defaultMode: "dark",
         },
         pages: {},
       }),
@@ -113,6 +114,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ["toml"],
       },
     }),
 };

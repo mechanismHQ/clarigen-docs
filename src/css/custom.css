@@ -6,24 +6,35 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #5622d1;
-  --ifm-color-primary-dark: #4d1fbc;
-  --ifm-color-primary-darker: #491db2;
-  --ifm-color-primary-darkest: #3c1892;
-  --ifm-color-primary-light: #622edd;
-  --ifm-color-primary-lighter: #6a39df;
-  --ifm-color-primary-lightest: #8258e4;
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #9673e8;
-  --ifm-color-primary-dark: #8055e3;
-  --ifm-color-primary-darker: #7446e1;
-  --ifm-color-primary-darkest: #5622d1;
-  --ifm-color-primary-light: #ac91ed;
-  --ifm-color-primary-lighter: #b8a0ef;
-  --ifm-color-primary-lightest: #d9ccf7;
+  --ifm-color-primary: #fefc05;
+  --ifm-color-primary-dark: #e8e601;
+  --ifm-color-primary-darker: #dbda01;
+  --ifm-color-primary-darkest: #b5b301;
+  --ifm-color-primary-light: #fefc1f;
+  --ifm-color-primary-lighter: #fefc2c;
+  --ifm-color-primary-lightest: #fefd52;
+
+  --ifm-navbar-background-color: black;
+  --ifm-footer-background-color: black;
+}
+
+.footer--dark {
+  background-color: black;
 }
 
 .docusaurus-highlight-code-line {
@@ -33,6 +44,21 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
-html[data-theme='dark'] .docusaurus-highlight-code-line {
+[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+@font-face {
+  font-family: "Open Sauce";
+  src: url("/fonts/OpenSauce/OpenSauceSans-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sauce";
+  src: url("/fonts/OpenSauce/OpenSauceSans-Medium.ttf");
+  font-style: medium;
+  font-weight: 500;
+  font-display: swap;
 }
