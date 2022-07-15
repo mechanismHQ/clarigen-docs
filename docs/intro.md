@@ -16,12 +16,12 @@ The workflow for using Clarigen is usually:
 - Build your web app using [`@clarigen/web`](adapters/web-adapter.md)
 - Write scripts and server-side code with [`@clarigen/node`](adapters/node-adapter.md)
 
-## Example projects
+## Example projects {#example-projects}
 
 - [Fungible token](https://github.com/hstove/stacks-fungible-token): the reference implementation that goes along with SIP-010, the standard for fungible tokens on Stacks
 - [Counter](https://github.com/hstove/clarigen-counter-example): A simple and silly counter contract that mints a fungible token any time someone calls `increment` or `decrement`
 
-## Why?
+## Why? {#why}
 
 When you're building Clarity contracts, and Clarity apps, there is a ton of boilerplate code that you need to write. Similarly, you need to use a different library, with a different API, depending on if you're writing tests, web apps, or node.js code.
 
@@ -32,7 +32,7 @@ Clarigen aims to provide two goals:
 - Provide an easy, JS-friendly API for any type of contract interaction. Never have to deal with converting Clarity values into JS values
 - Provide a single unified API regardless of the environment you're developing in
 
-## How it works
+## How it works {#how-it-works}
 
 The magic behind Clarigen starts with the fact that any Clarity contract can be represented as a machine-readable interface, exposed in JSON format. In other blockchains, this is commonly referred to as an ABI. The interface for a contract looks something like this:
 
@@ -83,7 +83,7 @@ test("Calling `decrement` on my counter contract", async () => {
 
 Clarity has it’s own set of [built-in types](https://docs.blockstack.org/references/language-types), but Clarigen will convert them to JavaScript native values behind the scenes. This way, you can pass arguments and check results just like you would with any JavaScript library.
 
-### The "provider pattern"
+### The "provider pattern" {#the-provider-pattern}
 
 Clarigen is designed to provide a unified API that can work in multiple different environments. Whether you’re writing unit tests or building a web app, developers can invoke functions using the same API (like `contract.getTotalSupply()`), even though what actually happens in those environments is totally different. The “provider pattern” can be helpful when writing code for this kind of situation.
 
@@ -91,4 +91,4 @@ Clarigen currently provides two providers - `WebProvider` and `TestProvider`. So
 
 Each provider has a common interface, with functions like `callPublic`. `TestProvider` uses `clarity-js-sdk` to run Clarity code and get the result. `WebProvider` uses `@stacks/connect` for making transaction signing requests with the [Stacks Wallet for Web](https://www.hiro.so/wallet/install-web).
 
-## Setup guide
+## Setup guide {#setup-guide}

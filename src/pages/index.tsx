@@ -3,31 +3,11 @@ import clsx from "clsx";
 import Layout from "@theme/Layout";
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import styles from "./index.module.css";
-import HomepageFeatures from "../components/HomepageFeatures";
 import { Box, Flex, Grid, Stack, Text } from "@nelson-ui/react";
 import CodeBlock from "@theme/CodeBlock";
 import { Link } from "../components/link";
-
-function HomepageHeader() {
-  const { siteConfig } = useDocusaurusContext();
-  return (
-    <header className={clsx("hero hero--primary", styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro"
-          >
-            Clarigen Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
+// @ts-ignore
+import intellisenseVideo from "../../static/video/clarinet-intellisense.mp4";
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
@@ -124,6 +104,12 @@ const receipt = chain.mineOne(
 assertEquals(receipt.value, 2n);
                   `}
             </CodeBlock>
+          </Box>
+          <Text variant="Body01">
+            Or a video to show that sweet, sweet intellisense:
+          </Text>
+          <Box width="100%">
+            <video src={intellisenseVideo} controls style={{ width: "100%" }} />
           </Box>
           <Text variant="Body01">Now, you've got:</Text>
           <Stack spacing="$1" ml="$4">
