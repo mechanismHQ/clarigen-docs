@@ -12,7 +12,7 @@ const config = {
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/favicon.png",
   organizationName: "hstove", // Usually your GitHub org/user name.
   projectName: "docusaurus", // Usually your repo name.
 
@@ -47,10 +47,10 @@ const config = {
     ({
       navbar: {
         title: "Clarigen",
-        // logo: {
-        //   alt: "Clarigen",
-        //   src: "img/logo.svg",
-        // },
+        logo: {
+          alt: "Clarigen",
+          src: "img/favicon.svg",
+        },
         items: [
           {
             type: "doc",
