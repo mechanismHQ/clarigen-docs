@@ -8,13 +8,13 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "clarigen",
   // tagline: 'Dinosaurs are cool',
-  url: "https://your-docusaurus-test-site.com",
+  url: "https://clarigen.dev",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.png",
-  organizationName: "hstove", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  organizationName: "mechanismHQ", // Usually your GitHub org/user name.
+  projectName: "clarigen-docs", // Usually your repo name.
 
   presets: [
     [
