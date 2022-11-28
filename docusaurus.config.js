@@ -36,7 +36,7 @@ const config = {
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
-          defaultMode: "dark",
+          // defaultMode: "dark",
         },
         pages: {},
       }),
