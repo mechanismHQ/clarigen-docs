@@ -30,6 +30,10 @@ The files watched are:
 - `Clarinet.toml`
 - `contracts/*.clar`
 
+### `clarigen docs` {#command-docs}
+
+Generate documentation from comments in your contracts. Check out the [documentation](./documentation) docs for more information.
+
 ### `clarigen init` {#command-init}
 
 Generate a `Clarigen.toml` file.

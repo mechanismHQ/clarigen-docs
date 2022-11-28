@@ -63,3 +63,17 @@ output = "src/clarigen.ts"
 // highlight-next-line
 after = "yarn prettier -w src/clarigen.ts"
 ```
+
+## `docs` {#docs}
+
+Clarigen can [automatically generate contract documentation](./documentation) for you.
+
+### `docs.output` {#docsoutput}
+
+Specify the folder where you'd like markdown files generated. A markdown file will be generated for each of your contracts, along with a `README.md` file.
+
+```toml title="Clarigen.toml"
+[docs]
+# docs will be generated at `./docs/$file.md`
+output = "docs"
+```

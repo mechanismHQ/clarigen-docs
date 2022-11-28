@@ -8,18 +8,16 @@ slug: /
 
 Clarigen is a developer tool that automatically generates TypeScript-friendly clients that can interact with [Clarity](https://clarity-lang.org) smart contracts.
 
-The workflow for using Clarigen is usually:
+Clarigen is built to work alongside the libraries and tooling you already use. For unit tests, it works perfectly with [Clarinet](https://github.com/hirosystems/clarinet). When you're building web apps or node.js code, it works seamlessly with [`micro-stacks`](https://micro-stacks.dev).
 
-- Write your Clarity contracts
-- Automatically generate interfaces for your contracts with `yarn clarigen --watch`
-- Write unit tests using [`@clarigen/test`](adapters/test-adapter.md)
-- Build your web app using [`@clarigen/web`](adapters/web-adapter.md)
-- Write scripts and server-side code with [`@clarigen/node`](adapters/node-adapter.md)
+If you'd like to get started using Clarigen in your project, head over to the [getting started with Clarigen](./getting-started) page.
 
-## Example projects {#example-projects}
+<!-- The workflow for using Clarigen is usually: -->
+
+<!-- ## Example projects {#example-projects}
 
 - [Fungible token](https://github.com/hstove/stacks-fungible-token): the reference implementation that goes along with SIP-010, the standard for fungible tokens on Stacks
-- [Counter](https://github.com/hstove/clarigen-counter-example): A simple and silly counter contract that mints a fungible token any time someone calls `increment` or `decrement`
+- [Counter](https://github.com/hstove/clarigen-counter-example): A simple and silly counter contract that mints a fungible token any time someone calls `increment` or `decrement` -->
 
 ## Why? {#why}
 
@@ -27,10 +25,7 @@ When you're building Clarity contracts, and Clarity apps, there is a ton of boil
 
 On the other hand, Clarity's designs mean that we shouldn't have to write lots of boilerplate. Clarity code is fully type-safe, and isn't compiled, so it's easy to generate a type interface for every single Clarity contract.
 
-Clarigen aims to provide two goals:
-
-- Provide an easy, JS-friendly API for any type of contract interaction. Never have to deal with converting Clarity values into JS values
-- Provide a single unified API regardless of the environment you're developing in
+Clarigen is designed to harness Clarity's architecture and type safety to remove any and all boilerplate in your JavaScript projects. Ultimately, it makes Clarity development much more productive and easy.
 
 ## How it works {#how-it-works}
 
@@ -56,39 +51,50 @@ The magic behind Clarigen starts with the fact that any Clarity contract can be 
 }
 ```
 
-Clarigen will generate the JSON interface for your contracts and turn it into type-safe JavaScript code, using JS primitives.
+Clarigen will take the JSON interface for each of your projects, lightly annotate it, and generate a TypeScript interface inside your project. When you're writing JS code (whether for testing or building apps), Clarigen's libraries will utilize these types to make interacting with contracts a breeze.
 
-After Clarigen automatically generates a wrapper for each of your contracts, you can write code that looks like this:
+The end result is that you'll be able to write code that looks like native JavaScript, but is converted under-the-hood to proper Clarity types.
 
-```ts
-import { TestProvider } from "@clarigen/test";
-import { counterInfo } from "@contracts/counter";
+Here's an example of what your code will look like when using Clarigen. This is an example of writing unit tests with Clarinet.
 
-const { counter } = await TestProvider.fromContracts({
-  counter: counterInfo,
-});
+```ts title="tests/counter_test.ts"
+// import helpers from the Clarigen package:
+import { factory, txOk } from "https://deno.land/x/clarigen/src/index.ts";
+// import from your auto-generated code:
+import { simnet } from "./clarigen.ts";
+import { assertEquals } from "https://deno.land/std@0.90.0/testing/asserts.ts";
 
-const sender = "ST3J2GVMMM2R07ZFBJDWTYEYAR8FZH5WKDTFJ9AHA";
+// helper function to "setup" the test environment
+const { contracts, test } = factory(simnet);
 
-test("Calling `decrement` on my counter contract", async () => {
-  const prev = await counter.getCounter();
-  expect(prev).toEqual(4);
-  const tx = counter.decrement();
-  const receipt = await tx.submit({ sender });
-  expect(receipt.isOk).toEqual(true);
-  const newValue = await counter.getCounter();
-  expect(newValue).toEqual(3);
+// "counter" is the name of our contract
+const { counter } = contracts;
+
+test({
+  name: "Counter test",
+  fn(chain, accounts) {
+    // similar to `accounts.get('wallet_1').address`;
+    const alice = accounts.addr("wallet_1");
+
+    // mine a block with a single transaction
+    // similar to `const [receipt] = chain.mineBlock(...).receipts;`
+    const receipt = chain.mineOne(txOk(counter.increment(2), alice));
+    assertEquals(receipt.value, 3n);
+
+    // mine a block with multiple transactions
+    const receipts = chain.mine(
+      txOk(counter.increment(2), alice),
+      txOk(counter.decrement(1), alice)
+    );
+    const [increment, decrement] = receipts;
+    assertEquals(decrement.value, 4n);
+
+    // Call a read-only function
+    // similar to Clarinet's `chain.callReadOnlyFn(...).expectOk()`
+    const currentCount = chain.rovOk(counter.readCounter());
+    assertEquals(currentCount, 3n);
+  },
 });
 ```
 
-Clarity has it’s own set of [built-in types](https://docs.blockstack.org/references/language-types), but Clarigen will convert them to JavaScript native values behind the scenes. This way, you can pass arguments and check results just like you would with any JavaScript library.
-
-### The "provider pattern" {#the-provider-pattern}
-
-Clarigen is designed to provide a unified API that can work in multiple different environments. Whether you’re writing unit tests or building a web app, developers can invoke functions using the same API (like `contract.getTotalSupply()`), even though what actually happens in those environments is totally different. The “provider pattern” can be helpful when writing code for this kind of situation.
-
-Clarigen currently provides two providers - `WebProvider` and `TestProvider`. Soon, it’ll also include a `NodeProvider`, which can be used in server-side and scripting contexts.
-
-Each provider has a common interface, with functions like `callPublic`. `TestProvider` uses `clarity-js-sdk` to run Clarity code and get the result. `WebProvider` uses `@stacks/connect` for making transaction signing requests with the [Stacks Wallet for Web](https://www.hiro.so/wallet/install-web).
-
-## Setup guide {#setup-guide}
+Clarity has it’s own set of [built-in types](https://docs.stacks.co/docs/write-smart-contracts/clarity-language/language-types), but Clarigen will convert them to JavaScript native values behind the scenes. This way, you can pass arguments and check results just like you would with any JavaScript library.
