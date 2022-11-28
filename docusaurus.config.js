@@ -12,7 +12,7 @@ const config = {
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.png",
+  favicon: "img/favicon@180.png",
   organizationName: "mechanismHQ", // Usually your GitHub org/user name.
   projectName: "clarigen-docs", // Usually your repo name.
   trailingSlash: false,
@@ -36,7 +36,7 @@ const config = {
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
-          // defaultMode: "dark",
+          defaultMode: "dark",
         },
         pages: {},
       }),
