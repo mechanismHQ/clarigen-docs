@@ -15,6 +15,7 @@ const config = {
   favicon: "img/favicon.png",
   organizationName: "mechanismHQ", // Usually your GitHub org/user name.
   projectName: "clarigen-docs", // Usually your repo name.
+  trailingSlash: false,
 
   presets: [
     [
