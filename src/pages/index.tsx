@@ -15,11 +15,11 @@ export default function Home(): JSX.Element {
     <Layout title={`Clarigen - a Clarity developer's tool`}>
       <Box mt="$3" className="container" mx="auto" maxWidth="800px">
         <Stack spacing="$5">
-          <Text as="h1" variant="Heading01">
+          <Text as="h1" variant="Heading01" fontFamily="Open Sans !important">
             Clarigen
           </Text>
           <Box maxWidth="600px">
-            <Text as="h2" variant="Heading03">
+            <Text as="h2" variant="Heading03" fontFamily="Open Sans !important">
               A developer tool that makes it simple and pleasant to build
               Clarity apps
             </Text>
@@ -54,7 +54,9 @@ export default function Home(): JSX.Element {
           maxWidth="800px"
         >
           <Stack spacing="$3">
-            <Text variant="Heading04">See the difference:</Text>
+            <Text variant="Heading04" fontFamily="Open Sans !important">
+              See the difference:
+            </Text>
             <Text variant="Body01">
               The best way to understand the value that Clarigen provides is to
               see how it changes the code you'd otherwise write. In these
