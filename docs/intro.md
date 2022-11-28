@@ -10,7 +10,7 @@ Clarigen is a developer tool that automatically generates TypeScript-friendly cl
 
 Clarigen is built to work alongside the libraries and tooling you already use. For unit tests, it works perfectly with [Clarinet](https://github.com/hirosystems/clarinet). When you're building web apps or node.js code, it works seamlessly with [`micro-stacks`](https://micro-stacks.dev).
 
-If you'd like to get started using Clarigen in your project, head over to the [getting started with Clarigen](./getting-started) page.
+If you'd like to get started using Clarigen in your project, head over to the [getting started with Clarigen](./docs/getting-started) page.
 
 <!-- The workflow for using Clarigen is usually: -->
 
