@@ -24,7 +24,7 @@ Clarigen can automatically generate contract documentation for you. By default, 
 clarigen docs
 ```
 
-## Getting started
+## Getting started {#getting-started}
 
 First, you'll need to [configure your `docs` output](./configuration#docs).
 
@@ -36,13 +36,13 @@ output = "docs"
 
 Once configured, just run `clarigen docs`, and Clarigen will generate documentation files for you.
 
-## Documentation output
+## Documentation output {#documentation-output}
 
 Claridoc will generate a markdown file for each of your contracts under your configured `docs.output` folder. If your contract name is `counter.clar`, the file will be `counter.md`.
 
 You'll also get a `README.md` file in your docs folder, which is a table of contents with links to each of your contracts.
 
-## How to document your contracts
+## How to document your contracts {#how-to-document-your-contracts}
 
 Claridoc assumes a certain format for how you use comments to document your contracts.
 
@@ -93,9 +93,9 @@ Here's an example:
 The counter contract maintains a single global counter variable. Users can
 change the counter by calling `increment` and `decrement`.
 
-#### Functions
+#### Functions {#functions}
 
-##### get-counter
+##### get-counter {#get-counter}
 
 `(define-read-only (get-counter () uint)`
 
@@ -112,7 +112,7 @@ Get the current counter
 
 </details>
 
-##### increment
+##### increment {#increment}
 
 `(define-public (increment ((step uint)) (response uint none))`
 
@@ -149,7 +149,7 @@ Increment the counter.
 
 </Tabs>
 
-### High-level contract description
+### High-level contract description {#high-level-contract-description}
 
 Adding comments to the top of your contract allow you to provide a description of the contract. Use this area to describe the overall purpose of the contract.
 
@@ -159,7 +159,7 @@ Adding comments to the top of your contract allow you to provide a description o
 ;; `increment` and `decrement`.
 ```
 
-### Documenting Functions
+### Documenting Functions {#documenting-functions}
 
 Add comments right above a function to document that function. Any un-tagged comments will be used to show a "description" of the function.
 
@@ -184,7 +184,7 @@ Start a line with `@param` to document a parameter. The syntax for documenting p
 )
 ```
 
-### Tips for documenting contracts
+### Tips for documenting contracts {#tips-for-documenting-contracts}
 
 - Use "vanilla" markdown inside of your comments. Claridoc will simply output the "raw" content, which will render as expected in markdown.
 - Don't manually add type hints in your documentation. Claridoc will automatically extract types for everything in your contract.

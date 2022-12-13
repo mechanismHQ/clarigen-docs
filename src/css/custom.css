@@ -62,3 +62,8 @@
   font-weight: 500;
   font-display: swap;
 }
+
+.code-block-terminal .token-line::before {
+  content: "$> ";
+  color: #25c19f;
+}
