@@ -25,8 +25,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          // editUrl:
-          //   "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          editUrl: "https://github.com/mechanismHQ/clarigen-docs/tree/main/",
         },
         blog: {
           showReadingTime: false,
@@ -59,11 +58,20 @@ const config = {
             position: "left",
             label: "Docs",
           },
-          // { to: "/blog", label: "Blog", position: "left" },
           {
-            href: "https://github.com/obylabs/clarigen",
-            label: "GitHub",
+            type: "dropdown",
+            label: "Github",
             position: "right",
+            items: [
+              {
+                href: "https://github.com/mechanismHQ/clarigen",
+                label: "Clarigen (Node.js/Web)",
+              },
+              {
+                href: "https://github.com/mechanismHQ/clarigen-deno",
+                label: "Clarigen (CLI/Deno)",
+              },
+            ],
           },
         ],
       },
