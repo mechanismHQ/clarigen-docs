@@ -35,6 +35,15 @@ output = "tests/clarigen.ts"
 # output = "clarigen.ts"
 ```
 
+### `deno.outputs` {#denooutputs}
+
+If you want to export multiple generated Deno types files (like for a monorepo), you can use the `outputs` array. Note that if `output` is present, then this is ignored.
+
+```toml title="Clarigen.toml
+[deno]
+outputs = ["common/clarigen.ts", "packages/web/clarigen.ts"]
+```
+
 ## `esm` {#esm}
 
 The "ESM" output is for environments that utilize NPM (or yarn, pnpm, etc) packages. This mostly refers to Node.js or web projects.
@@ -51,6 +60,15 @@ output = "common/clarigen.ts"
 
 # or disable:
 # output = "common/clarigen.ts"
+```
+
+### `esm.outputs` {#esmoutputs}
+
+If you want to export multiple generated types files (like for a monorepo), you can use the `outputs` array. Note that if `output` is present, then this is ignored.
+
+```toml title="Clarigen.toml
+[esm]
+outputs = ["common/clarigen.ts", "packages/web/clarigen.ts"]
 ```
 
 ### `esm.after` {#esmafter}
@@ -76,4 +94,24 @@ Specify the folder where you'd like markdown files generated. A markdown file wi
 [docs]
 # docs will be generated at `./docs/$file.md`
 output = "docs"
+```
+
+### `docs.exclude` {#docsexclue}
+
+By default, all contracts in `Clarinet.toml` are included in your docs. If you want to exclude certain contracts (such as traits and test helpers), you can use the `excludes` array.
+
+Note that the values in `excludes` should be your contract names - not files.
+
+If you have a `Clarinet.toml` like:
+
+```toml
+[contracts.extension-trait]
+path = 'contracts/traits/extension-trait.clar'
+```
+
+Then to exclude that contract, you'd do:
+
+```toml title="Clarigen.toml"
+[docs]
+exclude = ["extension-trait"]
 ```
