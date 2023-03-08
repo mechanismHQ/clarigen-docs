@@ -1,23 +1,102 @@
 ---
 sidebar_position: 1
 sidebar_label: Overview
-slug: /
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
 
 # Clarigen
 
 Clarigen is a developer tool that automatically generates TypeScript-friendly clients that can interact with [Clarity](https://clarity-lang.org) smart contracts.
 
-Clarigen is built to work alongside the libraries and tooling you already use. For unit tests, it works perfectly with [Clarinet](https://github.com/hirosystems/clarinet). When you're building web apps or node.js code, it works seamlessly with [`micro-stacks`](https://micro-stacks.dev).
+There are two huge benefits to using Clarigen:
+
+- Less boilerplate
+- Complete type safety
+
+Clarigen is built to work alongside the libraries and tooling you already use. For unit tests, it works perfectly with [Clarinet](https://github.com/hirosystems/clarinet). When you're building web apps or node.js code, it works seamlessly with [`micro-stacks`](https://micro-stacks.dev), but it'll also work with [Stacks.js](https://github.com/hirosystems/stacks.js).
 
 If you'd like to get started using Clarigen in your project, head over to the [getting started with Clarigen](./docs/getting-started) page.
 
-<!-- The workflow for using Clarigen is usually: -->
+## See the difference
 
-<!-- ## Example projects {#example-projects}
+To see how Clarigen can make building Stacks apps easier, compare the typical code you'll write with and without Clarigen.
 
-- [Fungible token](https://github.com/hstove/stacks-fungible-token): the reference implementation that goes along with SIP-010, the standard for fungible tokens on Stacks
-- [Counter](https://github.com/hstove/clarigen-counter-example): A simple and silly counter contract that mints a fungible token any time someone calls `increment` or `decrement` -->
+When writing contract tests with Clarinet:
+
+<Tabs>
+  <TabItem value="with" label="With Clarigen">
+
+```ts
+// with Clarigen
+const alice = accounts.get('wallet_1').address;
+const receipt = chain.txOk(contracts.counter.increment(2), alice);
+assertEquals(receipt.value, 2n);
+```
+
+  </TabItem>
+  <TabItem value="without" label="Without Clarigen">
+
+```ts
+// without Clarigen
+const wallet_1 = accounts.get('wallet_1')!;
+let block = chain.mineBlock([
+  Tx.contractCall('counter', 'increment', [types.uint(1)], wallet_1.address),
+]);
+block.receipts[0].result.expectOk().expectUint(2);
+```
+
+  </TabItem>
+</Tabs>
+
+Or, when building web apps:
+
+<Tabs>
+  <TabItem value="with" label="With Clarigen">
+
+```ts
+// with Clarigen
+const { openContractCall } = useOpenContractCall();
+
+async function handleOpenContractCall() {
+  await openContractCall({
+    ...nftContract.transfer({
+      id: 1234,
+      sender: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
+      recipient: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3.vault',
+    }),
+    onFinish: () => {},
+  });
+}
+```
+
+  </TabItem>
+  <TabItem value="without" label="Without Clarigen">
+
+```ts
+// without Clarigen
+const { openContractCall, isRequestPending } = useOpenContractCall();
+
+async function handleOpenContractCall() {
+  const functionArgs = [
+    uintCV(1234),
+    standardPrincipalCV('ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3'),
+    contractPrincipalCV('ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3.vault'),
+  ];
+  await openContractCall({
+    contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
+    contractName: 'nft-contract',
+    functionName: 'transfer',
+    functionArgs,
+    onFinish: () => {},
+  });
+}
+```
+
+  </TabItem>
+</Tabs>
 
 ## Why? {#why}
 
@@ -59,10 +138,10 @@ Here's an example of what your code will look like when using Clarigen. This is 
 
 ```ts title="tests/counter_test.ts"
 // import helpers from the Clarigen package:
-import { factory, txOk } from "https://deno.land/x/clarigen/src/index.ts";
+import { factory, txOk } from 'https://deno.land/x/clarigen/src/index.ts';
 // import from your auto-generated code:
-import { simnet } from "./clarigen.ts";
-import { assertEquals } from "https://deno.land/std@0.90.0/testing/asserts.ts";
+import { simnet } from './clarigen.ts';
+import { assertEquals } from 'https://deno.land/std@0.90.0/testing/asserts.ts';
 
 // helper function to "setup" the test environment
 const { contracts, test } = factory(simnet);
@@ -71,10 +150,10 @@ const { contracts, test } = factory(simnet);
 const { counter } = contracts;
 
 test({
-  name: "Counter test",
+  name: 'Counter test',
   fn(chain, accounts) {
     // similar to `accounts.get('wallet_1').address`;
-    const alice = accounts.addr("wallet_1");
+    const alice = accounts.addr('wallet_1');
 
     // mine a block with a single transaction
     // similar to `const [receipt] = chain.mineBlock(...).receipts;`

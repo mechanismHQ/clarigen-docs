@@ -1,0 +1,4 @@
+{
+  "yaml.schemaStore.enable": false,
+  "prettier.prettierPath": "./node_modules/prettier",
+}
