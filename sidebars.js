@@ -34,6 +34,7 @@ const sidebars = {
         'web/transactions',
         'web/factory',
         'web/deployments',
+        'web/post-conditions',
         'web/node',
       ],
       label: 'Building web apps',
