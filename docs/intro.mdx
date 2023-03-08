@@ -30,7 +30,6 @@ When writing contract tests with Clarinet:
   <TabItem value="with" label="With Clarigen">
 
 ```ts
-// with Clarigen
 const alice = accounts.get('wallet_1').address;
 const receipt = chain.txOk(contracts.counter.increment(2), alice);
 assertEquals(receipt.value, 2n);
@@ -40,7 +39,6 @@ assertEquals(receipt.value, 2n);
   <TabItem value="without" label="Without Clarigen">
 
 ```ts
-// without Clarigen
 const wallet_1 = accounts.get('wallet_1')!;
 let block = chain.mineBlock([
   Tx.contractCall('counter', 'increment', [types.uint(1)], wallet_1.address),
@@ -57,7 +55,6 @@ Or, when building web apps:
   <TabItem value="with" label="With Clarigen">
 
 ```ts
-// with Clarigen
 const { openContractCall } = useOpenContractCall();
 
 async function handleOpenContractCall() {
@@ -76,7 +73,6 @@ async function handleOpenContractCall() {
   <TabItem value="without" label="Without Clarigen">
 
 ```ts
-// without Clarigen
 const { openContractCall, isRequestPending } = useOpenContractCall();
 
 async function handleOpenContractCall() {
